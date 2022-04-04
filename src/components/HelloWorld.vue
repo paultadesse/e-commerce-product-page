@@ -3,9 +3,9 @@
     <!-- navigation bar -->
     <div class="flex justify-between items-center p-6 md:p-0 md:my-6">
       <div class="flex items-center space-x-2">
-        <img class="lg:hidden" src="../assets/icon-menu.svg" alt="" srcset="" />
+        <img class="lg:hidden px-2" src="../assets/icon-menu.svg" alt="" srcset="" />
         <img src="../assets/logo.svg" alt="" srcset="" />
-        <div class="hidden lg:block pl-16 space-x-6">
+        <div class="hidden lg:block pl-16 space-x-6 text-darkGrayishBlue font-light">
           <a href="#">Collections</a>
           <a href="#">Men</a>
           <a href="#">Women</a>
@@ -13,7 +13,7 @@
           <a href="#">Contact</a>
         </div>
       </div>
-      <div class="flex items-center space-x-6">
+      <div class="flex items-center space-x-6 md:space-x-16">
         <div class="relative">
           <img src="../assets/icon-cart.svg" alt="" srcset="" />
           <div class="absolute px-2.5 text-xs text-white rounded-full left-2 -top-2 bg-orange">
@@ -40,20 +40,20 @@
         <!-- product image -->
         <div>
           <!-- big image -->
-          <img class="md:rounded-2xl" src="../assets/image-product-1.jpg" alt="" srcset="" />
+          <img class="md:rounded-2xl cursor-pointer" src="../assets/image-product-1.jpg" alt="" srcset="" />
           <div class="hidden md:flex justify-between pt-2 md:pt-10">
             <!-- selected image -->
             <div class="md:rounded-lg border-2 border-orange bg-paleOrange ">  
               <img class="opacity-25 h-24 " src="../assets/image-product-1-thumbnail.jpg" alt="" srcset="" />
             </div>
-            <div class="">  
-              <img class="md:rounded-lg h-24 " src="../assets/image-product-2-thumbnail.jpg" alt="" srcset="" />
+            <div class="cursor-pointer">  
+              <img class="md:rounded-lg h-24 hover:opacity-25" src="../assets/image-product-2-thumbnail.jpg" alt="" srcset="" />
             </div>
-            <div class="">  
-              <img class="md:rounded-lg h-24 " src="../assets/image-product-3-thumbnail.jpg" alt="" srcset="" />
+            <div class="cursor-pointer">  
+              <img class="md:rounded-lg h-24 hover:opacity-25" src="../assets/image-product-3-thumbnail.jpg" alt="" srcset="" />
             </div>
-            <div class="">  
-              <img class="md:rounded-lg h-24 " src="../assets/image-product-4-thumbnail.jpg" alt="" srcset="" />
+            <div class="cursor-pointer">  
+              <img class="md:rounded-lg h-24 hover:opacity-25" src="../assets/image-product-4-thumbnail.jpg" alt="" srcset="" />
             </div>
           </div>
         </div>
@@ -88,14 +88,14 @@
         </div>
         <div class="md:flex md:space-y-0 space-y-4 md:space-x-4">
           <!-- quantity control -->
-          <div class="flex md:w-1/2 flex-none items-center justify-between bg-lightGrayishBlue rounded-lg px-4 py-3">
-            <img class="" src="../assets/icon-minus.svg" alt="" srcset="" />
+          <div class="flex w-full md:w-1/3 flex-none items-center justify-between bg-lightGrayishBlue rounded-lg px-4 py-3">
+            <img class="cursor-pointer" src="../assets/icon-minus.svg" alt="" srcset="" />
             <p class="font-bold text-lg">0</p>
-            <img class="" src="../assets/icon-plus.svg" alt="" srcset="" />
+            <img class="cursor-pointer" src="../assets/icon-plus.svg" alt="" srcset="" />
           </div>
           <!-- add to cart button -->
           <div class="md:w-full flex-none">
-            <button class="flex w-full items-center justify-center bg-orange space-x-4 rounded-lg px-4 py-4">
+            <button class="flex w-full md:w-2/4 items-center justify-center bg-orange space-x-4 rounded-lg px-4 py-4">
               <img class="" src="../assets/icon-cart.svg" alt="" srcset="" />
               <p class="font-semibold text-white tracking-wide text-sm">Add to cart</p>
             </button>
