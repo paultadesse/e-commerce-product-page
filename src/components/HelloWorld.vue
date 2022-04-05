@@ -2,7 +2,7 @@
   <div class="">
     <!-- lightbox design -->
     <div class="hidden">
-      <div class="absolute z-20 inset-0  flex justify-center items-center">
+      <div class="absolute z-40 inset-0  flex justify-center items-center">
         <!-- close icon -->
         <div class="absolute z-40 hover:cursor-pointer top-32  max-w-lg mx-auto inset-x-0 flex justify-end ">
           <img class="cursor-pointer h-6" src="../assets/icon-close.svg" alt="" srcset="" />
@@ -36,20 +36,20 @@
           </div>
       </div>
       <!-- the black background -->
-      <div class="absolute bg-black inset-0 z-10 opacity-75"></div>
+      <div class="absolute bg-black inset-0 z-20 opacity-75"></div>
     </div>
-    <div class="md:px-44">
+    <div class="xl:max-w-7xl max-w-lg mx-auto md:px-4">
       <!-- navigation bar -->
       <div class="relative flex justify-between items-center p-6 md:p-0 md:my-6">
-        <div class="flex items-center space-x-2">
-          <img class="lg:hidden px-2" src="../assets/icon-menu.svg" alt="" srcset="" />
+        <div class="flex items-center">
+          <img class="xl:hidden px-2" src="../assets/icon-menu.svg" alt="" srcset="" />
           <img src="../assets/logo.svg" alt="" srcset="" />
-          <div class="hidden lg:block pl-16 space-x-6 text-darkGrayishBlue font-light">
-            <a href="#">Collections</a>
-            <a href="#">Men</a>
-            <a href="#">Women</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
+          <div class="hidden xl:block pl-16 space-x-6 text-darkGrayishBlue font-light">
+            <a href="#" class="border-opacity-0 border-b-4 border-orange py-9 hover:border-opacity-100">Collections</a>
+            <a href="#" class="border-opacity-0 border-b-4 border-orange py-9 hover:border-opacity-100">Men</a>
+            <a href="#" class="border-opacity-0 border-b-4 border-orange py-9 hover:border-opacity-100">Women</a>
+            <a href="#" class="border-opacity-0 border-b-4 border-orange py-9 hover:border-opacity-100">About</a>
+            <a href="#" class="border-opacity-0 border-b-4 border-orange py-9 hover:border-opacity-100">Contact</a>
           </div>
         </div>
         <div class="flex items-center space-x-6 md:space-x-16">
@@ -62,32 +62,34 @@
           <img class="h-7 md:h-12 w-auto" src="../assets/image-avatar.png" alt="" srcset="" />
         </div>  
       </div>
-      <hr class="hidden md:block mt-3  mx-auto">
+      <hr class="hidden xl:block mt-3  mx-auto ">
       <!-- cart dialog -->
-        <div class="relative">
-          <div class="absolute px-2.5 md:px-0 z-30 top-1 right-0 md:-bottom-0 mt-2 md:-mt-5  w-full flex md:justify-end">
-            <div class="w-full md:w-1/4 rounded-2xl">
+        <div class="relative hidden">
+          <div class="absolute px-2.5 xl:px-0 z-10 top-1 right-0 md:-bottom-0 mt-2 md:-mt-5  w-full flex md:justify-end">
+            <div class="w-full xl:w-4/12 rounded-2xl">
               <div class=" shadow-2xl bg-white rounded-2xl">
                 <div class="p-6">
                   <p class="font-bold">Cart</p>
                 </div>         
                 <hr class="">
                 <!-- items list  -->
-                <div class="p-6 flex justify-between items-center">
-                  <div class="flex-none">
-                    <img class="rounded-lg h-14" src="../assets/image-product-1-thumbnail.jpg" alt="" srcset="" />
-                  </div>
-                  <div class="w-7/12">
-                    <div >
-                      <p class="text-darkGrayishBlue font-light truncate ">Autumn Limited Edition. this text will be not displayed because it's too long'</p>
+                <div class="max-h-52 overflow-y-auto">
+                  <div class="p-6 flex justify-between items-center">
+                    <div class="flex-none">
+                      <img class="rounded-lg h-14" src="../assets/image-product-1-thumbnail.jpg" alt="" srcset="" />
                     </div>
-                    <div class="flex space-x-2">
-                      <p class="text-darkGrayishBlue font-light">$125 x 3 </p>
-                      <p>$375.00</p>
+                    <div class="w-7/12">
+                      <div >
+                        <p class="text-darkGrayishBlue font-light truncate ">Autumn Limited Edition. this text will be not displayed because it's too long'</p>
+                      </div>
+                      <div class="flex space-x-2">
+                        <p class="text-darkGrayishBlue font-light">$125 x 3 </p>
+                        <p>$375.00</p>
+                      </div>
                     </div>
-                  </div>
-                  <div class="flex-none">
-                    <img class="h-5 cursor-pointer" src="../assets/icon-delete.svg" alt="" srcset="" />
+                    <div class="flex-none">
+                      <img class="h-5 cursor-pointer" src="../assets/icon-delete.svg" alt="" srcset="" />
+                    </div>
                   </div>
                 </div>
                 <div class="px-6 pb-6 ">
@@ -98,7 +100,7 @@
           </div>
         </div>
       <!-- whole content -->
-      <div class="md:flex md:justify-center md:items-center md:space-x-24 md:px-28 md:mt-16">
+      <div class="xl:flex justify-center items-center xl:space-x-24 xl:px-28 xl:mt-16">
         <!-- image holder -->
         <div class="relative md:max-w-lg flex-none">
           <div class="md:hidden absolute top-1/3 py-10 inset-x-0 flex items-center justify-between px-4">
@@ -131,14 +133,14 @@
           </div>
         </div>
 
-      <div class="p-6  md:max-w-lg">
+      <div class="px-6 md:p-0 mt-6 2xl:mt-0 2xl:px-0 2xl:max-w-lg ">
           <!-- company name -->
           <div>
-            <p class="uppercase text-orange leading-relaxed tracking-widest font-semibold">sneaker company</p>
+            <p class="uppercase text-sm 2xl:text-lg text-orange leading-relaxed tracking-widest font-semibold">sneaker company</p>
           </div>
           <!-- short description -->
-          <div class="py-3 md:py-6">
-            <p class="tracking-wide text-2xl font-semibold md:text-4xl">
+          <div class="py-3 lg:py-6">
+            <p class="tracking-wide text-2xl font-semibold 2xl:text-4xl">
               Fall Limited Edition Sneakers
             </p>
           </div>
@@ -158,16 +160,16 @@
               <p class="line-through text-lg font-bold text-grayishBlue">$250.00</p>
             </div>
           </div>
-          <div class="md:flex md:space-y-0 space-y-4 md:space-x-4">
+          <div class="2xl:flex 2xl:space-y-0 space-y-4 2xl:space-x-4">
             <!-- quantity control -->
-            <div class="flex w-full md:w-1/3 flex-none items-center justify-between bg-lightGrayishBlue rounded-lg px-4 py-3">
+            <div class="flex w-full 2xl:w-1/3 flex-none items-center justify-between bg-lightGrayishBlue rounded-lg px-4 py-3">
               <img class="cursor-pointer" src="../assets/icon-minus.svg" alt="" srcset="" />
               <p class="font-bold text-lg">0</p>
               <img class="cursor-pointer" src="../assets/icon-plus.svg" alt="" srcset="" />
             </div>
             <!-- add to cart button -->
-            <div class="md:w-full flex-none">
-              <button class="flex w-full md:w-2/4 items-center justify-center bg-orange space-x-4 rounded-lg px-4 py-4">
+            <div class="w-full ">
+              <button class="flex w-full items-center justify-center bg-orange space-x-4 rounded-lg px-4 py-4">
                 <img class="" src="../assets/icon-cart-white.svg" alt="" srcset="" />
                 <p class="font-semibold text-white tracking-wide text-sm">Add to cart</p>
               </button>
