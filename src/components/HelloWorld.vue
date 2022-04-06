@@ -64,7 +64,7 @@
       </div>
       <hr class="hidden xl:block mt-3  mx-auto ">
       <!-- cart dialog -->
-        <div class="relative hidden">
+        <div class="relative hidde">
           <div class="absolute px-2.5 xl:px-0 z-10 top-1 right-0 md:-bottom-0 mt-2 md:-mt-5  w-full flex md:justify-end">
             <div class="w-full xl:w-4/12 rounded-2xl">
               <div class=" shadow-2xl bg-white rounded-2xl">
@@ -114,20 +114,18 @@
           <!-- product image -->
           <div>
             <!-- big image -->
-            <img class="md:rounded-2xl cursor-pointer" src="../assets/image-product-1.jpg" alt="" srcset="" />
-            <div class="hidden md:flex justify-between pt-2 md:pt-10">
+            <img class="md:rounded-2xl cursor-pointer" :src="img(selectedImage.path)" alt="" srcset="" />
+            <div class="hidden md:flex justify-between pt-2 md:pt-10" >
               <!-- selected image -->
-              <div class="md:rounded-lg border-2 border-orange bg-paleOrange ">  
-                <img class="opacity-25 h-24 " src="../assets/image-product-1-thumbnail.jpg" alt="" srcset="" />
-              </div>
-              <div class="cursor-pointer">  
-                <img class="md:rounded-lg h-24 hover:opacity-25" src="../assets/image-product-2-thumbnail.jpg" alt="" srcset="" />
-              </div>
-              <div class="cursor-pointer">  
-                <img class="md:rounded-lg h-24 hover:opacity-25" src="../assets/image-product-3-thumbnail.jpg" alt="" srcset="" />
-              </div>
-              <div class="cursor-pointer">  
-                <img class="md:rounded-lg h-24 hover:opacity-25" src="../assets/image-product-4-thumbnail.jpg" alt="" srcset="" />
+              <div class="" v-for="(image, index) in images" :key="index">  
+                <img :class="isSelected(image)
+                   ? 'opacity-25 md:rounded-lg border-2 border-orange bg-paleOrange disabled':'cursor-pointer'"
+                   class="md:rounded-lg h-24 hover:opacity-25" 
+                   :src="img(image.thumbnailPath)" 
+                   alt="" 
+                   srcset=""
+                   @click="!isSelected(image) ? selectImage(image) : null"
+                />
               </div>
             </div>
           </div>
@@ -182,8 +180,43 @@
 </template>
 
 <script>
+import { ref } from "vue";
 export default {
   name: "HelloWorld",
+
+  setup() {
+    const images = [
+      { name: "product-1", path: "image-product-1.jpg", thumbnailPath: "image-product-1-thumbnail.jpg" },
+      { name: "product-2", path: "image-product-2.jpg", thumbnailPath: "image-product-2-thumbnail.jpg" },
+      { name: "product-3", path: "image-product-3.jpg", thumbnailPath: "image-product-3-thumbnail.jpg" },
+      { name: "product-4", path: "image-product-4.jpg", thumbnailPath: "image-product-4-thumbnail.jpg" },
+    ];
+
+    let selectedImage = ref(images[0]);
+
+    return {
+      images,
+      selectedImage
+    }
+  },
+
+  computed: {
+    
+  },
+
+  methods: {
+    img(path) {
+      return require(`../assets/${path}`);
+    },
+
+    isSelected(image) {
+      return image.name === this.selectedImage.name;
+    },
+
+    selectImage(image) {
+      this.selectedImage = image;
+    }
+  },
 };
 </script>
 
