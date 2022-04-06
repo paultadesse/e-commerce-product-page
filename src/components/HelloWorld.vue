@@ -1,7 +1,23 @@
 <template>
   <div class="">
+    <!-- Mobile Menu -->
+      <div v-if="toggleNavBar" class="xl:hidden">
+        <div class="absolute bg-black z-40 h-screen w-full opacity-40" @click="toggleNavBar = false"> </div>
+        <div class="absolute z-50 bg-white h-screen w-8/12 p-6">
+          <div class="mb-10">
+            <img class="cursor-pointer h-4" @click="toggleNavBar = false" src="../assets/icon-close-black.svg" alt="" srcset="" />
+          </div>
+          <div class="space-y-6 text-xl font-bold">
+            <div>Collections</div>
+            <div>Men</div>
+            <div>Women</div>
+            <div>About</div>
+            <div>Contact</div>
+          </div>
+        </div>
+      </div>
     <!-- lightbox design -->
-    <div v-if="showLightBox" class="">
+    <div v-if="showLightBox" class="hidden xl:block">
       <div class="absolute z-40 inset-0  flex justify-center items-center">
         
         <!-- images container -->
@@ -42,7 +58,7 @@
       <!-- navigation bar -->
       <div class="relative flex justify-between items-center p-6 md:p-0 md:my-6">
         <div class="flex items-center">
-          <img class="xl:hidden px-2" src="../assets/icon-menu.svg" alt="" srcset="" />
+          <img class="xl:hidden px-2" @click="toggleNavBar = true" src="../assets/icon-menu.svg" alt="" srcset="" />
           <img src="../assets/logo.svg" alt="" srcset="" />
           <div class="hidden xl:block pl-16 space-x-6 text-darkGrayishBlue font-light">
             <a href="#" class="border-opacity-0 border-b-4 border-orange py-9 hover:border-opacity-100">Collections</a>
@@ -65,9 +81,9 @@
       <hr class="hidden xl:block mt-3  mx-auto ">
       <!-- cart dialog -->
         <div v-if="showCart" class="relative">
-          <div class="absolute px-2.5 xl:px-0 z-10 top-1 right-0 md:-bottom-0 mt-2 md:-mt-5  w-full flex md:justify-end">
+          <div class="absolute z-40 px-2.5 xl:px-0 z-10 top-1 right-0 md:-bottom-0 mt-2 md:-mt-5  w-full flex md:justify-end">
             <div class="w-full xl:w-4/12 rounded-2xl">
-              <div class=" shadow-2xl bg-white rounded-2xl">
+              <div class="shadow-2xl bg-white rounded-2xl">
                 <div class="p-6">
                   <p class="font-bold">Cart</p>
                 </div>         
@@ -103,6 +119,8 @@
               </div>
             </div>
           </div>
+          <!-- cart background [covers the whole page] closes the cart list on click -->
+          <div class="absolute bg-transparent z-30 cursor-pointer h-screen w-full" @click="showCart = false"></div>
         </div>
       <!-- whole content -->
       <div class="xl:flex justify-center items-center xl:space-x-24 xl:px-28 xl:mt-16">
@@ -204,6 +222,7 @@ export default {
     let showLightBox = ref(false);
     let itemQuantity = ref(0);
     let itemsInCart = ref(0);
+    let toggleNavBar = ref(false);
 
     return {
       images,
@@ -211,7 +230,8 @@ export default {
       showCart,
       showLightBox,
       itemQuantity,
-      itemsInCart
+      itemsInCart,
+      toggleNavBar
     }
   },
 
