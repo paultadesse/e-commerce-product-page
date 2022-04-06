@@ -1,38 +1,38 @@
 <template>
   <div class="">
     <!-- lightbox design -->
-    <div class="hidden">
+    <div v-if="showLightBox" class="">
       <div class="absolute z-40 inset-0  flex justify-center items-center">
-        <!-- close icon -->
-        <div class="absolute z-40 hover:cursor-pointer top-32  max-w-lg mx-auto inset-x-0 flex justify-end ">
-          <img class="cursor-pointer h-6" src="../assets/icon-close.svg" alt="" srcset="" />
-        </div>
+        
         <!-- images container -->
-        <div class="max-w-lg space-y-4">
-          <img class="md:rounded-2xl h-1/2" src="../assets/image-product-1.jpg" alt="" srcset="" />
+        <div class="relative max-w-lg space-y-4">
+          <!-- close icon -->
+        <div class="absolute bottom-full mb-5 z-40 hover:cursor-pointer max-w-lg mx-auto inset-x-0 flex justify-end ">
+          <img class="cursor-pointer h-6" @click="showLightBox = !showLightBox" src="../assets/icon-close.svg" alt="" srcset="" />
+        </div>
+          <img class="md:rounded-2xl h-1/2" :src="img(selectedImage.path)" alt="" srcset="" />
           <div class="flex justify-around pt-4 px-6">
               <!-- selected image -->
-              <div class="md:rounded-lg border-2 border-orange bg-paleOrange ">  
-                <img class="opacity-25 h-20" src="../assets/image-product-1-thumbnail.jpg" alt="" srcset="" />
-              </div>
-              <div class="cursor-pointer">  
-                <img class="md:rounded-lg h-20 hover:opacity-25" src="../assets/image-product-2-thumbnail.jpg" alt="" srcset="" />
-              </div>
-              <div class="cursor-pointer">  
-                <img class="md:rounded-lg h-20 hover:opacity-25" src="../assets/image-product-3-thumbnail.jpg" alt="" srcset="" />
-              </div>
-              <div class="cursor-pointer">  
-                <img class="md:rounded-lg h-20 hover:opacity-25" src="../assets/image-product-4-thumbnail.jpg" alt="" srcset="" />
+              <div class="bg-paleOrange md:rounded-lg" v-for="(image, index) in images" :key="index">  
+                <img 
+                  :class="isSelected(image)
+                     ? 'opacity-50 md:rounded-lg border-2 border-orange bg-paleOrange disabled':'cursor-pointer'"
+                     class="md:rounded-lg h-20 hover:opacity-50" 
+                     :src="img(image.thumbnailPath)" 
+                     alt="" 
+                     srcset=""
+                     @click="!isSelected(image) ? selectImage(image) : null"
+                />
               </div>
             </div>
         </div>
         <div class="absolute max-w-xl px-1 bottom-1/2 py-10 flex justify-between w-full">
-            <div class="relative cursor-pointer bg-white h-12 w-12 rounded-full">
-              <img class="absolute left-4 top-4" src="../assets/icon-previous.svg" alt="" srcset="" />
-            </div>
-            <div class="relative cursor-pointer bg-white h-12 w-12 rounded-full">
+            <button class="relative cursor-pointer bg-white h-12 w-12 rounded-full" @click="previousImage">
+              <img class="absolute left-4 top-4"  src="../assets/icon-previous.svg" alt="" srcset="" />
+            </button>
+            <button class="relative cursor-pointer bg-white h-12 w-12 rounded-full" @click="nextImage">
               <img class="absolute right-4 top-4" src="../assets/icon-next.svg" alt="" srcset="" />
-            </div>
+            </button>
           </div>
       </div>
       <!-- the black background -->
@@ -53,8 +53,8 @@
           </div>
         </div>
         <div class="flex items-center space-x-6 md:space-x-16">
-          <div class="relative">
-            <img src="../assets/icon-cart.svg" alt="" srcset="" />
+          <div class="relative cursor-pointer">
+            <img src="../assets/icon-cart.svg" alt="" srcset="" @click="showCart = !showCart" />
             <div class="absolute px-2.5 text-xs text-white rounded-full left-2 -top-2 bg-orange">
               <p>3</p>
             </div>
@@ -64,7 +64,7 @@
       </div>
       <hr class="hidden xl:block mt-3  mx-auto ">
       <!-- cart dialog -->
-        <div class="relative hidde">
+        <div v-if="showCart" class="relative">
           <div class="absolute px-2.5 xl:px-0 z-10 top-1 right-0 md:-bottom-0 mt-2 md:-mt-5  w-full flex md:justify-end">
             <div class="w-full xl:w-4/12 rounded-2xl">
               <div class=" shadow-2xl bg-white rounded-2xl">
@@ -103,32 +103,44 @@
       <div class="xl:flex justify-center items-center xl:space-x-24 xl:px-28 xl:mt-16">
         <!-- image holder -->
         <div class="relative md:max-w-lg flex-none">
-          <div class="md:hidden absolute top-1/3 py-10 inset-x-0 flex items-center justify-between px-4">
-            <div class="relative bg-white h-10 w-10 rounded-full">
+          <!-- <div class="md:hidden bg-green-900 bg-transparent absolute top-1/3 py-10 inset-x-0 flex items-center justify-between px-4">
+            <button class="relative bg-white h-10 w-10 rounded-full" @click="previousImage">
               <img class="absolute left-3 top-3" src="../assets/icon-previous.svg" alt="" srcset="" />
-            </div>
-            <div class="relative bg-white h-10 w-10 rounded-full">
+            </button>
+            <button class="relative bg-white h-10 w-10 rounded-full" @click="nextImage">
               <img class="absolute right-3 top-3" src="../assets/icon-next.svg" alt="" srcset="" />
-            </div>
-          </div>
+            </button>
+          </div> -->
           <!-- product image -->
-          <div>
-            <!-- big image -->
-            <img class="md:rounded-2xl cursor-pointer" :src="img(selectedImage.path)" alt="" srcset="" />
-            <div class="hidden md:flex justify-between pt-2 md:pt-10" >
-              <!-- selected image -->
-              <div class="" v-for="(image, index) in images" :key="index">  
-                <img :class="isSelected(image)
-                   ? 'opacity-25 md:rounded-lg border-2 border-orange bg-paleOrange disabled':'cursor-pointer'"
-                   class="md:rounded-lg h-24 hover:opacity-25" 
-                   :src="img(image.thumbnailPath)" 
-                   alt="" 
-                   srcset=""
-                   @click="!isSelected(image) ? selectImage(image) : null"
-                />
+            <div>
+              <!-- big image -->
+              <div class="md:hidden">
+                <button class="absolute top-1/3 mt-10 ml-4 bg-white h-10 w-10 rounded-full" @click="previousImage">
+                  <img class="absolute left-3 top-3" src="../assets/icon-previous.svg" alt="" srcset="" />
+                </button>
+                <button class="absolute top-1/3 mt-10 mr-4 bg-white h-10 w-10 right-0 rounded-full" @click="previousImage">
+                  <img class="absolute left-3 top-3" src="../assets/icon-next.svg" alt="" srcset="" />
+                </button>
               </div>
-            </div>
-          </div>
+              <img class="md:rounded-2xl cursor-pointer" 
+                @click="showLightBox = true" 
+                :src="img(selectedImage.path)" 
+                alt="" 
+                srcset="" />
+              <div class="hidden md:flex justify-between pt-2 md:pt-10" >
+                <!-- selected image -->
+                <div class="" v-for="(image, index) in images" :key="index">  
+                  <img :class="isSelected(image)
+                     ? 'opacity-25 md:rounded-lg border-2 border-orange bg-paleOrange disabled':'cursor-pointer'"
+                     class="md:rounded-lg h-24 hover:opacity-25" 
+                     :src="img(image.thumbnailPath)" 
+                     alt="" 
+                     srcset=""
+                     @click="!isSelected(image) ? selectImage(image) : null"
+                  />
+                </div>
+              </div>
+            </div> 
         </div>
 
       <div class="px-6 md:p-0 mt-6 2xl:mt-0 2xl:px-0 2xl:max-w-lg ">
@@ -193,10 +205,14 @@ export default {
     ];
 
     let selectedImage = ref(images[0]);
+    let showCart = ref(false);
+    let showLightBox = ref(false);
 
     return {
       images,
-      selectedImage
+      selectedImage,
+      showCart,
+      showLightBox
     }
   },
 
@@ -215,7 +231,29 @@ export default {
 
     selectImage(image) {
       this.selectedImage = image;
-    }
+    },
+
+    getCurrentImageIndex() {
+      // There are two different approaches to [ Get the index of an Object in an Array ]
+      const index = this.images.map(object => object.name).indexOf(this.selectedImage.name);
+      // let currentImageindex = this.images.findIndex(object => {
+      //   return object.name == this.selectedImage.name;
+      // });
+      // console.log(index);
+      return index;
+    },
+
+    previousImage() {
+      const index = this.getCurrentImageIndex();
+      //show the previous image in the list until we reach the initial [ finally start from last index]
+      index != 0 ? this.selectedImage = this.images[index - 1] : this.selectedImage = this.images[this.images.length - 1];
+    },
+
+    nextImage() {
+      const index = this.getCurrentImageIndex();
+      //show the next image in the list until we reach the end [ finally start from 0 index]
+      index != this.images.length - 1 ? this.selectedImage = this.images[index + 1] : this.selectedImage = this.images[0];
+    } 
   },
 };
 </script>
