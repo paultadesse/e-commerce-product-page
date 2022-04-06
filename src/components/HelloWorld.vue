@@ -56,7 +56,7 @@
           <div class="relative cursor-pointer">
             <img src="../assets/icon-cart.svg" alt="" srcset="" @click="showCart = !showCart" />
             <div class="absolute px-2.5 text-xs text-white rounded-full left-2 -top-2 bg-orange">
-              <p>3</p>
+              <p>{{ itemsInCart }}</p>
             </div>
           </div>
           <img class="h-7 md:h-12 w-auto" src="../assets/image-avatar.png" alt="" srcset="" />
@@ -73,27 +73,32 @@
                 </div>         
                 <hr class="">
                 <!-- items list  -->
-                <div class="max-h-52 overflow-y-auto">
-                  <div class="p-6 flex justify-between items-center">
-                    <div class="flex-none">
-                      <img class="rounded-lg h-14" src="../assets/image-product-1-thumbnail.jpg" alt="" srcset="" />
-                    </div>
-                    <div class="w-7/12">
-                      <div >
-                        <p class="text-darkGrayishBlue font-light truncate ">Autumn Limited Edition. this text will be not displayed because it's too long'</p>
+                <div v-if="itemsInCart">
+                    <div class="max-h-52 overflow-y-auto">
+                      <div class="p-6 flex justify-between items-center">
+                        <div class="flex-none">
+                          <img class="rounded-lg h-14" src="../assets/image-product-1-thumbnail.jpg" alt="" srcset="" />
+                        </div>
+                        <div class="w-7/12">
+                          <div >
+                            <p class="text-darkGrayishBlue font-light truncate ">Autumn Limited Edition. this text will be not displayed because it's too long'</p>
+                          </div>
+                          <div class="flex space-x-2">
+                            <p class="text-darkGrayishBlue font-light">$125.00 x {{ itemsInCart }} </p>
+                            <p>${{ totalPrice }}</p>
+                          </div>
+                        </div>
+                        <div class="flex-none">
+                          <img class="h-5 cursor-pointer" @click="removeFromCart" src="../assets/icon-delete.svg" alt="" srcset="" />
+                        </div>
                       </div>
-                      <div class="flex space-x-2">
-                        <p class="text-darkGrayishBlue font-light">$125 x 3 </p>
-                        <p>$375.00</p>
-                      </div>
                     </div>
-                    <div class="flex-none">
-                      <img class="h-5 cursor-pointer" src="../assets/icon-delete.svg" alt="" srcset="" />
-                    </div>
+                  <div class="px-6 pb-6 ">
+                    <button class="block w-full py-3 rounded-lg font-bold bg-orange text-white">Checkout</button>
                   </div>
                 </div>
-                <div class="px-6 pb-6 ">
-                  <button class="block w-full py-3 rounded-lg font-bold bg-orange text-white">Checkout</button>
+                <div v-else class="flex h-52 justify-center items-center">
+                  <p class="text-darkGrayishBlue font-bold">Your cart is empty.</p>
                 </div>
               </div>
             </div>
@@ -103,16 +108,7 @@
       <div class="xl:flex justify-center items-center xl:space-x-24 xl:px-28 xl:mt-16">
         <!-- image holder -->
         <div class="relative md:max-w-lg flex-none">
-          <!-- <div class="md:hidden bg-green-900 bg-transparent absolute top-1/3 py-10 inset-x-0 flex items-center justify-between px-4">
-            <button class="relative bg-white h-10 w-10 rounded-full" @click="previousImage">
-              <img class="absolute left-3 top-3" src="../assets/icon-previous.svg" alt="" srcset="" />
-            </button>
-            <button class="relative bg-white h-10 w-10 rounded-full" @click="nextImage">
-              <img class="absolute right-3 top-3" src="../assets/icon-next.svg" alt="" srcset="" />
-            </button>
-          </div> -->
           <!-- product image -->
-            <div>
               <!-- big image -->
               <div class="md:hidden">
                 <button class="absolute top-1/3 mt-10 ml-4 bg-white h-10 w-10 rounded-full" @click="previousImage">
@@ -140,7 +136,6 @@
                   />
                 </div>
               </div>
-            </div> 
         </div>
 
       <div class="px-6 md:p-0 mt-6 2xl:mt-0 2xl:px-0 2xl:max-w-lg ">
@@ -173,13 +168,13 @@
           <div class="2xl:flex 2xl:space-y-0 space-y-4 2xl:space-x-4">
             <!-- quantity control -->
             <div class="flex w-full 2xl:w-1/3 flex-none items-center justify-between bg-lightGrayishBlue rounded-lg px-4 py-3">
-              <img class="cursor-pointer" src="../assets/icon-minus.svg" alt="" srcset="" />
-              <p class="font-bold text-lg">0</p>
-              <img class="cursor-pointer" src="../assets/icon-plus.svg" alt="" srcset="" />
+              <img class="cursor-pointer" @click="itemQuantity != 0 ? itemQuantity-- : null" src="../assets/icon-minus.svg" alt="" srcset="" />
+              <p class="font-bold text-lg">{{ itemQuantity }}</p>
+              <img class="cursor-pointer" @click="itemQuantity++" src="../assets/icon-plus.svg" alt="" srcset="" />
             </div>
             <!-- add to cart button -->
             <div class="w-full ">
-              <button class="flex w-full items-center justify-center bg-orange space-x-4 rounded-lg px-4 py-4">
+              <button class="flex w-full items-center justify-center bg-orange space-x-4 rounded-lg px-4 py-4" @click="addToCart">
                 <img class="" src="../assets/icon-cart-white.svg" alt="" srcset="" />
                 <p class="font-semibold text-white tracking-wide text-sm">Add to cart</p>
               </button>
@@ -207,17 +202,23 @@ export default {
     let selectedImage = ref(images[0]);
     let showCart = ref(false);
     let showLightBox = ref(false);
+    let itemQuantity = ref(0);
+    let itemsInCart = ref(0);
 
     return {
       images,
       selectedImage,
       showCart,
-      showLightBox
+      showLightBox,
+      itemQuantity,
+      itemsInCart
     }
   },
 
   computed: {
-    
+    totalPrice() {
+      return (this.itemsInCart * 125).toFixed(2);
+    }
   },
 
   methods: {
@@ -253,7 +254,16 @@ export default {
       const index = this.getCurrentImageIndex();
       //show the next image in the list until we reach the end [ finally start from 0 index]
       index != this.images.length - 1 ? this.selectedImage = this.images[index + 1] : this.selectedImage = this.images[0];
-    } 
+    },
+
+    addToCart() {
+      this.itemsInCart = this.itemQuantity;
+    },
+
+    removeFromCart() {
+      this.itemQuantity = 0; 
+      this.itemsInCart = 0;
+    }  
   },
 };
 </script>
